@@ -22,4 +22,15 @@ class DashboardController < ApplicationController
       render "dashboard/pie_charts"
     end
   end
+
+  def change_graph_dup
+    self.try(params[:graph])
+
+    if params[:graph] == "bar_graph"
+      render "dashboard/bar_graph"
+    else
+      @user = current_user
+      render "dashboard/pie_charts"
+    end
+  end
 end

@@ -42,6 +42,8 @@ class UsersController < ApplicationController
       flash[:error] = "Could not update user!"
       redirect_to user_account_settings_path(user_id: current_user.id)
     end
+  rescue StandardError => e # code smell
+    puts "exception #{e.message}"
   end
 
   private
@@ -54,4 +56,13 @@ class UsersController < ApplicationController
   def user_params_without_password
     params.require(:user).permit(:email, :admin, :first_name, :last_name)
   end
+
+  # code smell
+  def is_active?
+		if user.id == 1
+			return true
+		else
+			return false
+		end
+	end
 end
